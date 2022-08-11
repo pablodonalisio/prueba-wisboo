@@ -20,7 +20,7 @@ RSpec.describe 'Products', type: :request do # rubocop:disable Metrics/BlockLeng
 
     it 'returns all products' do
       expect(body['products'].size).to eq(20)
-      expect(body['metadata']['total_records']).to eq(20)
+      expect(body['meta']['total_records']).to eq(20)
     end
 
     context 'with size of products by page' do
@@ -28,7 +28,7 @@ RSpec.describe 'Products', type: :request do # rubocop:disable Metrics/BlockLeng
 
       it 'returns the right amount of products' do
         expect(body['products'].size).to eq(10)
-        expect(body['metadata']['total_records'].to_i).to eq(10)
+        expect(body['meta']['total_records'].to_i).to eq(10)
       end
     end
 
@@ -42,7 +42,7 @@ RSpec.describe 'Products', type: :request do # rubocop:disable Metrics/BlockLeng
     end
 
     context 'filtered by currency' do
-      let(:params) { { currency: 'USD'} }
+      let(:params) { { currency: 'USD' } }
 
       it 'returns products with the specified currency' do
         expect(body['products'].size).to eq(10)

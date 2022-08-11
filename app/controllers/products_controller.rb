@@ -1,10 +1,6 @@
 class ProductsController < ApplicationController
   def index
-    products = Product.where('name LIKE ?', "%#{query}%")
-                      .where(by_currency, params[:currency])
-                      .page(page).per(size)
-
-    render json: { metadata: metadata, products: products }, status: :ok
+    render json: products, meta: metadata, adapter: :json, status: :ok
   end
 
   private
@@ -27,5 +23,11 @@ class ProductsController < ApplicationController
 
   def by_currency
     'currency = ?' if params[:currency]
+  end
+
+  def products
+    @products ||= Product.where('name LIKE ?', "%#{query}%")
+                         .where(by_currency, params[:currency])
+                         .page(page).per(size)
   end
 end
